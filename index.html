@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultores AMEC | Abogados Penal y Civil en Perú</title>
+  <meta name="description" content="Consultores AMEC: especialistas en Derecho Penal y Civil. Defensa estratégica, asesoría integral y soluciones rápidas. Atención en todo el Perú." />
+  <meta name="keywords" content="abogados, penal, civil, consultora legal, Perú, defensa, asesoría legal" />
+  <meta property="og:title" content="Consultores AMEC | Expertos en Ley Peruana" />
+  <meta property="og:description" content="Abogados especialistas en Penal y Civil. Agenda tu consulta hoy mismo por WhatsApp o formulario." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_PE" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230ea5e9'/><text x='50' y='62' font-size='56' text-anchor='middle' fill='white' font-family='Arial'>A</text></svg>">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#effaff', 100: '#dff4ff', 200: '#b9e8ff', 300: '#86d8ff', 400: '#4fc2ff', 500: '#0ea5e9', 600: '#0b86bd', 700: '#0a6e9b', 800: '#0a587c', 900: '#0a4966'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px -10px rgba(2, 132, 199, 0.25)'
+          }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    /* Smooth scrolling */
+    html { scroll-behavior: smooth; }
+    /* Estilo para partículas */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      background: transparent;
+    }
+  </style>
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <!-- JSON-LD Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Consultores AMEC",
+    "description": "Abogados especialistas en Derecho Penal y Civil en Perú.",
+    "areaServed": "PE",
+    "url": "https://consultores-amec.example",
+    "telephone": "+51900757545",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Ejemplo 123",
+      "addressLocality": "Lima",
+      "addressRegion": "Lima",
+      "postalCode": "15000",
+      "addressCountry": "PE"
+    },
+    "sameAs": [
+      "https://wa.me/51900757545"
+    ]
+  }
+  </script>
+</head>
+<body class="font-body bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+  <!-- Partículas -->
+  <div id="particles-js"></div>
+
+  <!-- Top bar -->
+  <div class="w-full bg-brand-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
+      <p class="truncate">Atención rápida en todo el Perú • Primera orientación sin costo</p>
+      <div class="flex items-center gap-3">
+        <a id="top-whatsapp" href="#" class="inline-flex items-center gap-2 hover:underline" aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp w-4 h-4"></i>
+          <span class="hidden sm:inline">WhatsApp</span>
+        </a>
+        <button id="toggle-dark" class="px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700" aria-label="Cambiar modo oscuro">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-100 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#inicio" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-2xl bg-brand-500 text-white grid place-content-center font-bold shadow-soft">A</div>
+        <span class="font-display text-lg font-semibold">Consultores AMEC</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6" aria-label="Principal">
+        <a href="#servicios" class="hover:text-brand-600">Servicios</a>
+        <a href="#casos" class="hover:text-brand-600">Casos</a>
+        <a href="#faq" class="hover:text-brand-600">Preguntas</a>
+        <a href="#contacto" class="hover:text-brand-600">Contacto</a>
+        <a id="nav-whatsapp" href="#" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-xl shadow-soft">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Consulta por WhatsApp</span>
+        </a>
+      </nav>
+      <button id="menu-btn" class="md:hidden p-2 rounded-lg border border-slate-200 dark:border-slate-700" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden border-t border-slate-100 dark:border-slate-800">
+      <nav class="px-4 py-3 flex flex-col gap-3">
+        <a href="#servicios" class="py-2">Servicios</a>
+        <a href="#casos" class="py-2">Casos</a>
+        <a href="#faq" class="py-2">Preguntas</a>
+        <a href="#contacto" class="py-2">Contacto</a>
+        <a id="mobile-whatsapp" href="#" class="mt-2 inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-xl">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="inicio" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-50 via-white to-white dark:from-slate-800 dark:via-slate-900 dark:to-slate-900"></div>
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="font-display text-3xl md:text-5xl font-extrabold leading-tight">Expertos en Ley Peruana<br><span class="text-brand-600">Penal & Civil</span></h1>
+        <p class="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-300">Defensa estratégica, soluciones claras y atención inmediata. Tu tranquilidad legal empieza hoy.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a id="hero-whatsapp" href="#" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 rounded-xl shadow-soft">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Hablar por WhatsApp</span>
+          </a>
+          <a href="#contacto" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700">
+            <i class="fa-solid fa-calendar-check"></i> Agendar consulta
+          </a>
+        </div>
+        <div class="mt-6 flex items-center gap-6 text-sm text-slate-600 dark:text-slate-400">
+          <div class="flex items-center gap-2"><i class="fa-solid fa-star text-2xl"></i><span>4.9/5 en satisfacción</span></div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-2xl"></i><span>+300 casos gestionados</span></div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-soft">
+          <img src="./logo.png" alt="Abogado peruano revisando expediente" class="w-full h-full object-cover" loading="eager" />
+        </div>
+        <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl shadow-soft hidden sm:block">
+          <p class="text-sm">Respuesta promedio: <span class="font-semibold">menos de 10 min</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust badges -->
+  <section class="py-10 border-t border-slate-100 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50"><i class="fa-solid fa-map-marked-alt mr-2"></i>Atención en todo el Perú</div>
+      <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50"><i class="fa-solid fa-credit-card mr-2"></i>Pagos por transferencia y Yape</div>
+      <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50"><i class="fa-solid fa-lock mr-2"></i>Confidencialidad garantizada</div>
+      <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50"><i class="fa-solid fa-handshake mr-2"></i>Transparencia en honorarios</div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="font-display text-2xl md:text-4xl font-bold">Áreas de práctica</h2>
+      <p class="mt-2 text-slate-600 dark:text-slate-300">Especialistas en Derecho Penal y Civil con enfoque preventivo y litigación estratégica.</p>
+      <div class="mt-8 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Penal -->
+        <article class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+          <h3 class="text-xl font-semibold"><i class="fa-solid fa-gavel mr-2"></i>Derecho Penal</h3>
+          <ul class="mt-3 list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+            <li>Defensa en investigaciones fiscales y procesos penales</li>
+            <li>Medidas de coerción: prisión preventiva, comparecencia</li>
+            <li>Delitos patrimoniales, contra la vida, corrupción</li>
+            <li>Compliance penal para empresas</li>
+          </ul>
+          <div class="mt-4 flex gap-3">
+            <a href="#contacto" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700"><i class="fa-solid fa-calendar-check mr-2"></i>Agenda</a>
+            <a href="#" class="px-4 py-2 rounded-xl bg-brand-500 text-white" data-wsp="Penal"><i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp</a>
+          </div>
+        </article>
+        <!-- Civil -->
+        <article class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+          <h3 class="text-xl font-semibold"><i class="fa-solid fa-balance-scale mr-2"></i>Derecho Civil</h3>
+          <ul class="mt-3 list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+            <li>Contratos, obligaciones y responsabilidad civil</li>
+            <li>Propiedad, desalojo, prescripción adquisitiva</li>
+            <li>Familia: divorcio, alimentos, tenencia, filiación</li>
+            <li>Indemnizaciones y cobro de deudas</li>
+          </ul>
+          <div class="mt-4 flex gap-3">
+            <a href="#contacto" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700"><i class="fa-solid fa-calendar-check mr-2"></i>Agenda</a>
+            <a href="#" class="px-4 py-2 rounded-xl bg-brand-500 text-white" data-wsp="Civil"><i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp</a>
+          </div>
+        </article>
+        <!-- Preventivo -->
+        <article class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+          <h3 class="text-xl font-semibold"><i class="fa-solid fa-shield-alt mr-2"></i>Asesoría Preventiva</h3>
+          <ul class="mt-3 list-disc list-inside space-y-1 text-slate-700 dark:text-slate-300">
+            <li>Revisión y redacción de contratos</li>
+            <li>Cartas notariales y negociaciones</li>
+            <li>Auditoría legal para negocios</li>
+            <li>Capacitaciones in-house</li>
+          </ul>
+          <div class="mt-4 flex gap-3">
+            <a href="#contacto" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700"><i class="fa-solid fa-calendar-check mr-2"></i>Agenda</a>
+            <a href="#" class="px-4 py-2 rounded-xl bg-brand-500 text-white" data-wsp="Asesoría Preventiva"><i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="font-display text-2xl md:text-4xl font-bold">Cómo trabajamos</h2>
+      <div class="mt-8 grid md:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <i class="fa-solid fa-search text-3xl"></i>
+          <h3 class="mt-2 font-semibold">Evaluación</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">Analizamos tu caso y definimos opciones reales.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <i class="fa-solid fa-map-signs text-3xl"></i>
+          <h3 class="mt-2 font-semibold">Estrategia</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">Plan legal a medida con cronograma e hitos.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <i class="fa-solid fa-bolt text-3xl"></i>
+          <h3 class="mt-2 font-semibold">Ejecución</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">Acciones rápidas: escritos, audiencias, negociaciones.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <i class="fa-solid fa-eye text-3xl"></i>
+          <h3 class="mt-2 font-semibold">Seguimiento</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300">Reporte claro de avances y próximos pasos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Casos de éxito / testimonios -->
+  <section id="casos" class="py-16 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="font-display text-2xl md:text-4xl font-bold">Resultados y testimonios</h2>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <blockquote class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <p>“Actuaron rápido y lograron revocar la prisión preventiva. 100% recomendados.”</p>
+          <cite class="mt-3 block text-sm text-slate-600 dark:text-slate-300">— J.S., Lima</cite>
+        </blockquote>
+        <blockquote class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <p>“Recuperé mi inmueble en menos tiempo del estimado y con trato humano.”</p>
+          <cite class="mt-3 block text-sm text-slate-600 dark:text-slate-300">— M.R., Arequipa</cite>
+        </blockquote>
+        <blockquote class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40">
+          <p>“Claridad en honorarios y comunicación constante durante todo el proceso.”</p>
+          <cite class="mt-3 block text-sm text-slate-600 dark:text-slate-300">— M.C., Trujillo</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="font-display text-2xl md:text-4xl font-bold">Preguntas frecuentes</h2>
+      <div class="mt-8 space-y-4" role="tablist">
+        <details class="group border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+          <summary class="cursor-pointer font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-lg"><i class="fa-solid fa-question-circle mr-2"></i>¿Cuánto cuesta la consulta?</summary>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">La primera orientación es gratuita. La consulta especializada tiene tarifa plana. Cotizamos por caso con transparencia.</p>
+        </details>
+        <details class="group border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+          <summary class="cursor-pointer font-semibold"><i class="fa-solid fa-video mr-2"></i>¿Atienden de forma virtual?</summary>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Sí, por videollamada, teléfono y WhatsApp en todo el Perú. También presencial con cita.</p>
+        </details>
+        <details class="group border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+          <summary class="cursor-pointer font-semibold"><i class="fa-solid fa-money-bill mr-2"></i>¿Cómo es el pago?</summary>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Transferencia, Yape o depósito. Emitimos recibo. En litigios, se acuerdan hitos de pago por etapas.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-16 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-start">
+      <div>
+        <h2 class="font-display text-2xl md:text-4xl font-bold">Contacto</h2>
+        <p class="mt-2 text-slate-600 dark:text-slate-300">Cuéntanos brevemente tu caso y te respondemos a la brevedad.</p>
+        <form id="contact-form" class="mt-6 space-y-4" novalidate>
+          <div>
+            <label for="nombre" class="block text-sm font-medium">Nombre completo</label>
+            <input id="nombre" name="nombre" type="text" required class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900" placeholder="Tu nombre" />
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="telefono" class="block text-sm font-medium">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" inputmode="tel" required class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900" placeholder="9XXXXXXXX" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium">Email</label>
+              <input id="email" name="email" type="email" class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900" placeholder="tucorreo@dominio.com" />
+            </div>
+          </div>
+          <div>
+            <label for="area" class="block text-sm font-medium">Área</label>
+            <select id="area" name="area" class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
+              <option>Penal</option>
+              <option>Civil</option>
+              <option>Otra</option>
+            </select>
+          </div>
+          <div>
+            <label for="mensaje" class="block text-sm font-medium">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900" placeholder="Describe tu caso en 2-3 líneas"></textarea>
+          </div>
+          <div class="flex items-center gap-3">
+            <button type="submit" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 rounded-xl"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+            <a id="contact-whatsapp" href="#" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          </div>
+          <p id="form-status" class="text-sm mt-2"></p>
+        </form>
+      </div>
+
+      <div class="space-y-4">
+        <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+          <iframe title="Ubicación en Google Maps" src="https://www.google.com/maps?q=Plaza+de+Armas+de+Lima&output=embed" class="w-full h-80"></iframe>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+          <h3 class="font-semibold"><i class="fa-solid fa-address-book mr-2"></i>Datos de contacto</h3>
+          <ul class="mt-2 text-slate-700 dark:text-slate-300 space-y-1">
+            <li><i class="fa-brands fa-whatsapp mr-2"></i><a id="card-whatsapp" href="#" class="hover:underline">WhatsApp directo</a></li>
+            <li><i class="fa-solid fa-envelope mr-2"></i><a href="mailto:contacto@consultores-amec.pe" class="hover:underline">contacto@consultores-amec.pe</a></li>
+            <li><i class="fa-solid fa-map-marker-alt mr-2"></i>Av. Ejemplo 123, Lima</li>
+            <li><i class="fa-solid fa-clock mr-2"></i>Lun–Sáb: 8:00–20:00</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="py-16">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="font-display text-2xl md:text-4xl font-bold">¿Necesitas ayuda legal hoy?</h2>
+      <p class="mt-2 text-slate-600 dark:text-slate-300">Escríbenos por WhatsApp y conversamos ahora mismo.</p>
+      <a id="footer-whatsapp" href="#" class="mt-6 inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-xl"><i class="fa-brands fa-whatsapp"></i> Abrir WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-100 dark:border-slate-800 py-10">
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-2xl bg-brand-500 text-white grid place-content-center font-bold">A</div>
+          <span class="font-semibold">Consultores AMEC</span>
+        </div>
+        <p class="mt-3 text-slate-600 dark:text-slate-300">Expertos en Ley peruana: Penal & Civil.</p>
+      </div>
+      <nav class="grid grid-cols-2 gap-3">
+        <a href="#servicios" class="hover:underline">Servicios</a>
+        <a href="#casos" class="hover:underline">Casos</a>
+        <a href="#faq" class="hover:underline">Preguntas</a>
+        <a href="#contacto" class="hover:underline">Contacto</a>
+      </nav>
+      <div class="text-slate-600 dark:text-slate-300">
+        <p>© <span id="year"></span> Consultores AMEC. Todos los derechos reservados.</p>
+        <p class="mt-1">Políticas de privacidad • Términos de servicio</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a id="float-wsp" href="#" class="fixed bottom-5 right-5 inline-flex items-center justify-center w-14 h-14 rounded-full bg-green-500 text-white shadow-soft" aria-label="WhatsApp flotante"><i class="fa-brands fa-whatsapp fa-lg"></i></a>
+
+  <!-- Sticky CTA mobile -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 p-3 flex items-center justify-between gap-2">
+    <a id="sticky-wsp" href="#" class="flex-1 inline-flex items-center justify-center gap-2 bg-brand-500 text-white py-3 rounded-xl"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    <a href="#contacto" class="flex-1 inline-flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 py-3 rounded-xl"><i class="fa-solid fa-envelope"></i> Formulario</a>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // ======== CONFIG PERSONALIZABLE ========
+    const AMEC = {
+      nombre: 'Consultores AMEC',
+      wspNumero: '51900757545', // Reemplaza con tu número sin "+"
+      wspMensaje: 'Hola, vengo del sitio web. Me gustaría una consulta legal.',
+      emailDestino: 'contacto@consultores-amec.pe'
+    }
+
+    // Generar enlace de WhatsApp con mensaje
+    function wspLink(prefijo = '') {
+      const mensaje = encodeURIComponent(prefijo ? `[${prefijo}] ` + AMEC.wspMensaje : AMEC.wspMensaje)
+      return `https://wa.me/${AMEC.wspNumero}?text=${mensaje}`
+    }
+
+    // Asignar enlaces de WhatsApp
+    const wspIds = ['top-whatsapp','nav-whatsapp','mobile-whatsapp','hero-whatsapp','contact-whatsapp','card-whatsapp','footer-whatsapp','float-wsp','sticky-wsp']
+    wspIds.forEach(id => {
+      const el = document.getElementById(id)
+      if (el) el.setAttribute('href', wspLink())
+    })
+
+    // Botones de WhatsApp por servicio con prefijo
+    document.querySelectorAll('[data-wsp]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        const area = btn.getAttribute('data-wsp') || ''
+        window.open(wspLink(area), '_blank')
+      })
+    })
+
+    // Modo oscuro
+    const toggle = document.getElementById('toggle-dark')
+    const root = document.documentElement
+    const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const stored = localStorage.getItem('amec-theme')
+    if ((stored === 'dark') || (!stored && preferDark)) root.classList.add('dark')
+    toggle?.addEventListener('click', () => {
+      root.classList.toggle('dark')
+      localStorage.setItem('amec-theme', root.classList.contains('dark') ? 'dark' : 'light')
+      toggle.innerHTML = root.classList.contains('dark') ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>'
+    })
+
+    // Menú móvil
+    const menuBtn = document.getElementById('menu-btn')
+    const mobileMenu = document.getElementById('mobile-menu')
+    menuBtn?.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true'
+      menuBtn.setAttribute('aria-expanded', String(!expanded))
+      mobileMenu.classList.toggle('hidden')
+      menuBtn.innerHTML = expanded ? '<i class="fa-solid fa-bars"></i>' : '<i class="fa-solid fa-times"></i>'
+    })
+
+    // Año actual
+    document.getElementById('year').textContent = new Date().getFullYear()
+
+    // Validación y envío básico del formulario (demo)
+    const form = document.getElementById('contact-form')
+    const status = document.getElementById('form-status')
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      status.textContent = ''
+
+      const data = {
+        nombre: form.nombre.value.trim(),
+        telefono: form.telefono.value.trim(),
+        email: form.email.value.trim(),
+        area: form.area.value,
+        mensaje: form.mensaje.value.trim()
+      }
+
+      // Validaciones simples
+      const errores = []
+      if (!data.nombre) errores.push('Nombre')
+      if (!/^9\d{8}$/.test(data.telefono)) errores.push('Teléfono (formato 9XXXXXXXX)')
+      if (data.email && !/^\S+@\S+\.\S+$/.test(data.email)) errores.push('Email válido')
+      if (!data.mensaje || data.mensaje.length < 10) errores.push('Mensaje (mín. 10 car.)')
+
+      if (errores.length) {
+        status.textContent = 'Revisa: ' + errores.join(', ')
+        status.className = 'text-red-600'
+        return
+      }
+
+      // Envío demo: mailto + opción de WhatsApp
+      const asunto = encodeURIComponent(`[${data.area}] Nueva consulta de ${data.nombre}`)
+      const cuerpo = encodeURIComponent(`Nombre: ${data.nombre}\nTeléfono: ${data.telefono}\nEmail: ${data.email}\nÁrea: ${data.area}\nMensaje: ${data.mensaje}`)
+
+      // OPCIÓN 1: abrir correo
+      window.location.href = `mailto:${AMEC.emailDestino}?subject=${asunto}&body=${cuerpo}`
+
+      // OPCIÓN 2: también abrir WhatsApp con el resumen
+      setTimeout(() => {
+        const resumen = encodeURIComponent(`[${data.area}] ${data.nombre} (${data.telefono}) — ${data.mensaje}`)
+        window.open(`https://wa.me/${AMEC.wspNumero}?text=${resumen}`, '_blank')
+      }, 400)
+
+      status.textContent = '¡Listo! Se abrió tu correo y WhatsApp con la información.'
+      status.className = 'text-green-600'
+    })
+
+    // Configuración de partículas (estilo astros)
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: ['#ffffff', '#b9e8ff', '#86d8ff'] },
+        shape: {
+          type: 'circle',
+          stroke: { width: 0, color: '#000000' },
+          polygon: { nb_sides: 5 }
+        },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+        },
+        line_linked: {
+          enable: false
+        },
+        move: {
+          enable: true,
+          speed: 0.5,
+          direction: 'none',
+          random: true,
+          straight: false,
+          out_mode: 'out',
+          bounce: false,
+          attract: { enable: false, rotateX: 600, rotateY: 1200 }
+        }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true
+        },
+        modes: {
+          grab: { distance: 400, line_linked: { opacity: 1 } },
+          bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+          repulse: { distance: 100, duration: 0.4 },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>

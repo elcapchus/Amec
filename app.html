@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmericoControl - Gestión de Bufete</title>
+    <!-- Importar la fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Importar Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Importar Font Awesome 6.6.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" xintegrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qS4zW0q5g2s5pP9hY9yY9y5i8u+2w+2w+3w+4w+5w+6w+7w+8w+9w+0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Importar html2pdf.js para futura generación de PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="font-inter bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white min-h-full flex flex-col antialiased relative overflow-hidden">
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app-container" class="flex flex-1 hidden">
+        <!-- Barra Lateral de Navegación -->
+        <aside id="sidebar" class="bg-white dark:bg-gray-800 w-64 p-6 shadow-lg rounded-r-3xl flex flex-col justify-between transition-all duration-300">
+            <div>
+                <div class="flex items-center mb-10">
+                    <i class="fas fa-gavel text-blue-600 dark:text-blue-400 text-3xl"></i>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white ml-2">Americo<span class="text-blue-600 dark:text-blue-400">Control</span></h1>
+                </div>
+                <nav class="space-y-2">
+                    <a href="#" data-section="dashboard" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 active bg-gray-200 dark:bg-gray-800 text-blue-600 dark:text-blue-400">
+                        <i class="fas fa-chart-line text-lg mr-4"></i>
+                        <span class="font-medium">Panel de Control</span>
+                    </a>
+                    <a href="#" data-section="agenda" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="far fa-calendar-alt text-lg mr-4"></i>
+                        <span class="font-medium">Agenda y Citas</span>
+                    </a>
+                    <a href="#" data-section="clients-cases" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-users text-lg mr-4"></i>
+                        <span class="font-medium">Clientes y Casos</span>
+                    </a>
+                    <a href="#" data-section="finances" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-sack-dollar text-lg mr-4"></i>
+                        <span class="font-medium">Finanzas</span>
+                    </a>
+                    <a href="#" data-section="quick-tools" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-tools text-lg mr-4"></i>
+                        <span class="font-medium">Herramientas Rápidas</span>
+                    </a>
+                    <a href="#" data-section="files" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-folder-open text-lg mr-4"></i>
+                        <span class="font-medium">Archivos y Contratos</span>
+                    </a>
+                    <a href="#" data-section="templates" class="nav-link flex items-center p-3 rounded-2xl transition duration-200 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-file-invoice text-lg mr-4"></i>
+                        <span class="font-medium">Plantillas</span>
+                    </a>
+                </nav>
+            </div>
+            <!-- Perfil de Usuario y Cerrar Sesión -->
+            <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-3">
+                    <img id="user-photo" src="" alt="User Photo" class="w-10 h-10 rounded-full">
+                    <span id="user-display-name" class="text-gray-800 dark:text-white font-medium"></span>
+                </div>
+                <button id="logout-btn" class="mt-4 w-full text-left flex items-center p-3 rounded-2xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900 transition duration-200">
+                    <i class="fas fa-right-from-bracket text-lg mr-4"></i>
+                    <span class="font-medium">Cerrar Sesión</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <div id="content-container" class="mx-auto">
+                <!-- El contenido de las secciones se renderiza aquí dinámicamente -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Pantalla de Login -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl w-full max-w-sm text-center">
+            <div class="flex flex-col items-center mb-6">
+                <i class="fas fa-gavel text-blue-600 dark:text-blue-400 text-5xl mb-4"></i>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Americo<span class="text-blue-600 dark:text-blue-400">Control</span></h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-2">Gestión de bufete de abogados</p>
+            </div>
+            <button id="google-login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-full flex items-center justify-center space-x-2 transition duration-300">
+                <i class="fab fa-google"></i>
+                <span>Iniciar sesión con Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenedor de Modales (oculto por defecto) -->
+    <div id="modal-container" class="fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center p-4 hidden">
+
+        <!-- Modal de Añadir Cliente -->
+        <div id="add-client-modal" class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl w-full max-w-md hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Añadir Nuevo Cliente</h2>
+                <button class="text-gray-400 hover:text-gray-600 modal-close-btn">&times;</button>
+            </div>
+            <form id="add-client-form" class="space-y-4">
+                <input type="text" id="client-nombre" name="nombre" placeholder="Nombre completo" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="client-caso" name="caso" placeholder="Descripción del caso" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select id="client-estado" name="estado" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <div class="flex justify-end space-x-2 mt-6">
+                    <button type="button" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-full modal-cancel-btn">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full">Guardar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal de Añadir Cita -->
+        <div id="add-appointment-modal" class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl w-full max-w-md hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Añadir Nueva Cita</h2>
+                <button class="text-gray-400 hover:text-gray-600 modal-close-btn">&times;</button>
+            </div>
+            <form id="add-appointment-form" class="space-y-4">
+                <input type="text" id="appointment-titulo" name="titulo" placeholder="Título de la cita" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="date" id="appointment-fecha" name="fecha" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="time" id="appointment-hora" name="hora" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="flex justify-end space-x-2 mt-6">
+                    <button type="button" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-full modal-cancel-btn">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full">Guardar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal de Añadir Ingreso -->
+        <div id="add-income-modal" class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl w-full max-w-md hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Añadir Nuevo Ingreso</h2>
+                <button class="text-gray-400 hover:text-gray-600 modal-close-btn">&times;</button>
+            </div>
+            <form id="add-income-form" class="space-y-4">
+                <input type="text" id="income-descripcion" name="descripcion" placeholder="Descripción del ingreso" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" id="income-monto" name="monto" placeholder="Monto (COP)" required min="0" step="0.01" class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="date" id="income-fecha" name="fecha" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="flex justify-end space-x-2 mt-6">
+                    <button type="button" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-full modal-cancel-btn">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full">Guardar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal de Añadir Gasto -->
+        <div id="add-expense-modal" class="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl w-full max-w-md hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Añadir Nuevo Gasto</h2>
+                <button class="text-gray-400 hover:text-gray-600 modal-close-btn">&times;</button>
+            </div>
+            <form id="add-expense-form" class="space-y-4">
+                <input type="text" id="expense-descripcion" name="descripcion" placeholder="Descripción del gasto" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" id="expense-monto" name="monto" placeholder="Monto (COP)" required min="0" step="0.01" class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="date" id="expense-fecha" name="fecha" required class="w-full p-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="flex justify-end space-x-2 mt-6">
+                    <button type="button" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-full modal-cancel-btn">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full">Guardar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal de Notificación -->
+        <div id="message-modal" class="absolute bottom-6 right-6 p-4 rounded-2xl shadow-xl z-50 transition-all duration-300 hidden">
+            <div id="message-modal-content" class="bg-white dark:bg-gray-800 p-4 rounded-2xl border-l-4 border-green-500">
+                <p id="message-text" class="text-gray-800 dark:text-white"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Importar Firebase SDKs (v11.6.1) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, collection, onSnapshot, query, addDoc, deleteDoc, where, getDocs, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db;
+        let auth;
+        let userId;
+        let userDisplayName = 'Usuario';
+        let userPhotoURL = 'https://placehold.co/40x40/cccccc/ffffff?text=U';
+        let isAuthReady = false;
+
+        let clients = [];
+        let appointments = [];
+        let income = [];
+        let expenses = [];
+
+        // --- DOM Elements ---
+        const loginScreen = document.getElementById('login-screen');
+        const appContainer = document.getElementById('app-container');
+        const loginButton = document.getElementById('google-login-btn');
+        const logoutButton = document.getElementById('logout-btn');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('content-container');
+        const userDisplayNameElem = document.getElementById('user-display-name');
+        const userPhotoElem = document.getElementById('user-photo');
+
+        // Modals
+        const modalContainer = document.getElementById('modal-container');
+        const addClientModal = document.getElementById('add-client-modal');
+        const addAppointmentModal = document.getElementById('add-appointment-modal');
+        const addIncomeModal = document.getElementById('add-income-modal');
+        const addExpenseModal = document.getElementById('add-expense-modal');
+        const messageModal = document.getElementById('message-modal');
+        const messageModalContent = document.getElementById('message-modal-content');
+        
+        // Forms
+        const addClientForm = document.getElementById('add-client-form');
+        const addAppointmentForm = document.getElementById('add-appointment-form');
+        const addIncomeForm = document.getElementById('add-income-form');
+        const addExpenseForm = document.getElementById('add-expense-form');
+        const meetLinkBtn = document.getElementById('generate-meet-link-btn');
+
+        // --- Utility Functions ---
+
+        /**
+         * Sanitizes input to prevent XSS attacks.
+         * @param {string} input - The raw input string.
+         * @returns {string} The sanitized HTML string.
+         */
+        function sanitizeInput(input) {
+            const div = document.createElement('div');
+            div.textContent = input;
+            return div.innerHTML;
+        }
+
+        /**
+         * Shows a specific modal by its ID.
+         * @param {string} modalId - The ID of the modal to show.
+         */
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        /**
+         * Hides a specific modal by its ID.
+         * @param {string} modalId - The ID of the modal to hide.
+         */
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            // Reset forms inside the modal
+            const form = document.getElementById(modalId).querySelector('form');
+            if (form) {
+                form.reset();
+            }
+        }
+
+        /**
+         * Displays a generic notification modal.
+         * @param {string} message - The message to display.
+         * @param {'success' | 'error'} type - The type of notification.
+         */
+        function showMessageModal(message, type) {
+            messageModal.classList.remove('hidden');
+            if (type === 'error') {
+                messageModalContent.classList.add('border-red-500');
+            } else {
+                messageModalContent.classList.remove('border-red-500');
+            }
+            document.getElementById('message-text').textContent = message;
+            setTimeout(() => {
+                messageModal.classList.add('hidden');
+            }, 3000);
+        }
+
+        /**
+         * Formats a number as currency.
+         * @param {number} amount - The amount to format.
+         * @returns {string} The formatted currency string.
+         */
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP'
+            }).format(amount);
+        }
+
+        /**
+         * Creates a collection reference for the current user.
+         * @param {string} collectionName - The name of the collection.
+         * @returns {any} A Firestore collection reference.
+         */
+        function getCollectionRef(collectionName) {
+            if (!userId) {
+                console.error("User ID not available.");
+                return null;
+            }
+            return collection(db, `artifacts/${appId}/users/${userId}/${collectionName}`);
+        }
+
+        // --- Firebase Functions ---
+
+        /**
+         * Initializes Firebase and sets up authentication.
+         */
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Sign in the user with the custom token or anonymously if the token is not available
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Listen for auth state changes
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        userDisplayName = user.displayName || 'Usuario';
+                        userPhotoURL = user.photoURL || 'https://placehold.co/40x40/cccccc/ffffff?text=U';
+                        
+                        userDisplayNameElem.textContent = userDisplayName;
+                        userPhotoElem.src = userPhotoURL;
+                        
+                        showApp();
+                        // Set up real-time listeners for data
+                        setupDataListeners();
+                    } else {
+                        showLoginScreen();
+                    }
+                    isAuthReady = true;
+                });
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                showMessageModal(`Error de inicialización: ${error.message}`, 'error');
+            }
+        }
+
+        /**
+         * Signs in the user with Google.
+         */
+        async function googleSignIn() {
+            try {
+                const provider = new GoogleAuthProvider();
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Error signing in with Google:", error);
+                showMessageModal(`Error al iniciar sesión: ${error.message}`, 'error');
+            }
+        }
+
+        /**
+         * Signs out the current user.
+         */
+        async function signOutUser() {
+            try {
+                await signOut(auth);
+                location.reload(); // Reload the page to reset state
+            } catch (error) {
+                console.error("Error signing out:", error);
+                showMessageModal(`Error al cerrar sesión: ${error.message}`, 'error');
+            }
+        }
+
+        /**
+         * Sets up real-time listeners for all collections.
+         */
+        function setupDataListeners() {
+            if (!isAuthReady) {
+                console.warn("Auth not ready, skipping data listeners setup.");
+                return;
+            }
+
+            // Clients listener
+            onSnapshot(getCollectionRef('clientes'), (snapshot) => {
+                clients = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderContent('clients-cases');
+                renderDashboard();
+            });
+
+            // Appointments listener
+            onSnapshot(getCollectionRef('agenda'), (snapshot) => {
+                appointments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderContent('agenda');
+            });
+
+            // Income listener
+            onSnapshot(getCollectionRef('ingresos'), (snapshot) => {
+                income = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderContent('finances');
+                renderDashboard();
+            });
+
+            // Expenses listener
+            onSnapshot(getCollectionRef('gastos'), (snapshot) => {
+                expenses = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderContent('finances');
+                renderDashboard();
+            });
+        }
+
+        /**
+         * Adds a document to a Firestore collection.
+         * @param {string} collectionName - The name of the collection.
+         * @param {object} data - The data to add.
+         */
+        async function addDocument(collectionName, data) {
+            try {
+                await addDoc(getCollectionRef(collectionName), data);
+                showMessageModal('Documento añadido con éxito.', 'success');
+            } catch (error) {
+                console.error(`Error adding document to ${collectionName}:`, error);
+                showMessageModal(`Error al añadir documento: ${error.message}`, 'error');
+            }
+        }
+
+        /**
+         * Deletes a document from a Firestore collection.
+         * @param {string} collectionName - The name of the collection.
+         * @param {string} docId - The ID of the document to delete.
+         */
+        async function deleteDocument(collectionName, docId) {
+            try {
+                await deleteDoc(doc(db, `artifacts/${appId}/users/${userId}/${collectionName}`, docId));
+                showMessageModal('Documento eliminado con éxito.', 'success');
+            } catch (error) {
+                console.error(`Error deleting document from ${collectionName}:`, error);
+                showMessageModal(`Error al eliminar documento: ${error.message}`, 'error');
+            }
+        }
+
+        // --- UI Rendering Functions ---
+
+        /**
+         * Renders the content for the Dashboard section.
+         */
+        function renderDashboard() {
+            if (!isAuthReady) return;
+            const totalIncome = income.reduce((sum, item) => sum + item.monto, 0);
+            const totalExpenses = expenses.reduce((sum, item) => sum + item.monto, 0);
+            const activeClients = clients.filter(client => client.estado === 'Activo').length;
+
+            mainContent.innerHTML = `
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Panel de Control</h1>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card de Ingresos Totales -->
+                    <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6 flex items-center">
+                        <div class="p-4 bg-blue-500 text-white rounded-full mr-4">
+                            <i class="fas fa-sack-dollar fa-2x"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 dark:text-gray-300 font-medium">Ingresos Totales</p>
+                            <p class="text-3xl font-bold text-gray-900 dark:text-white">${formatCurrency(totalIncome)}</p>
+                        </div>
+                    </div>
+                    <!-- Card de Gastos Totales -->
+                    <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6 flex items-center">
+                        <div class="p-4 bg-red-500 text-white rounded-full mr-4">
+                            <i class="fas fa-money-bill-transfer fa-2x"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 dark:text-gray-300 font-medium">Gastos Totales</p>
+                            <p class="text-3xl font-bold text-gray-900 dark:text-white">${formatCurrency(totalExpenses)}</p>
+                        </div>
+                    </div>
+                    <!-- Card de Clientes Activos -->
+                    <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6 flex items-center">
+                        <div class="p-4 bg-green-500 text-white rounded-full mr-4">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 dark:text-gray-300 font-medium">Clientes Activos</p>
+                            <p class="text-3xl font-bold text-gray-900 dark:text-white">${activeClients}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Renders the content for the Agenda section.
+         */
+        function renderAppointments() {
+            if (!isAuthReady) return;
+            mainContent.innerHTML = `
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Agenda y Citas</h1>
+                <div class="flex justify-end mb-4">
+                    <button id="add-appointment-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                        <i class="fas fa-plus mr-2"></i>Añadir Cita
+                    </button>
+                </div>
+                <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6">
+                    <ul id="appointment-list" class="divide-y divide-gray-200 dark:divide-gray-600">
+                        ${appointments.length === 0 ? `<li class="p-4 text-center text-gray-500 dark:text-gray-300">No hay citas programadas.</li>` : ''}
+                        ${appointments.map(app => `
+                            <li class="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-150">
+                                <div class="flex-grow">
+                                    <p class="font-semibold text-lg text-gray-900 dark:text-white">${sanitizeInput(app.titulo)}</p>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                                        <i class="far fa-calendar-alt mr-1"></i>${sanitizeInput(app.fecha)}
+                                        <i class="far fa-clock ml-4 mr-1"></i>${sanitizeInput(app.hora)}
+                                    </p>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="${getGoogleCalendarUrl(app)}" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150" title="Añadir a Google Calendar">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <button class="text-red-500 hover:text-red-700 transition duration-150 delete-btn" data-collection="agenda" data-id="${app.id}" title="Eliminar cita">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+        
+        /**
+         * Generates a Google Calendar URL for an appointment.
+         * @param {object} app - The appointment object.
+         * @returns {string} The Google Calendar URL.
+         */
+        function getGoogleCalendarUrl(app) {
+            const startDate = new Date(`${app.fecha}T${app.hora}:00`);
+            const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // 1 hour duration
+            const formattedStart = startDate.toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+            const formattedEnd = endDate.toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+            return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(app.titulo)}&dates=${formattedStart}/${formattedEnd}`;
+        }
+
+        /**
+         * Renders the content for the Clients and Cases section.
+         */
+        function renderClients() {
+            if (!isAuthReady) return;
+            mainContent.innerHTML = `
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Clientes y Casos</h1>
+                <div class="flex justify-end mb-4">
+                    <button id="add-client-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                        <i class="fas fa-plus mr-2"></i>Añadir Cliente
+                    </button>
+                </div>
+                <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                        <thead class="bg-gray-50 dark:bg-gray-800">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Caso</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+                            ${clients.length === 0 ? `<tr class="bg-gray-50 dark:bg-gray-800"><td colspan="4" class="px-6 py-4 whitespace-nowrap text-center text-gray-500 dark:text-gray-300">No hay clientes registrados.</td></tr>` : ''}
+                            ${clients.map(client => `
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">${sanitizeInput(client.nombre)}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-500 dark:text-gray-400">${sanitizeInput(client.caso)}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${client.estado === 'Activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                            ${sanitizeInput(client.estado)}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <button class="text-red-500 hover:text-red-700 delete-btn" data-collection="clientes" data-id="${client.id}" title="Eliminar cliente">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        /**
+         * Renders the content for the Finances section.
+         */
+        function renderFinances(tab = 'income') {
+            if (!isAuthReady) return;
+            const isIncomeTab = tab === 'income';
+            const data = isIncomeTab ? income : expenses;
+            const total = data.reduce((sum, item) => sum + item.monto, 0);
+            const collectionName = isIncomeTab ? 'ingresos' : 'gastos';
+
+            mainContent.innerHTML = `
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Finanzas</h1>
+                <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6">
+                    <!-- Tabs -->
+                    <div class="flex border-b border-gray-200 dark:border-gray-600 mb-6">
+                        <button class="px-4 py-2 text-sm font-medium ${isIncomeTab ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'} tab-btn" data-tab="income">Ingresos</button>
+                        <button class="px-4 py-2 text-sm font-medium ${!isIncomeTab ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'} tab-btn" data-tab="expenses">Gastos</button>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">${isIncomeTab ? 'Listado de Ingresos' : 'Listado de Gastos'}</h2>
+                        <button id="add-${collectionName}-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                            <i class="fas fa-plus mr-2"></i>Añadir ${isIncomeTab ? 'Ingreso' : 'Gasto'}
+                        </button>
+                    </div>
+                    
+                    <p class="text-xl font-medium text-gray-700 dark:text-gray-300 mb-4">
+                        Total ${isIncomeTab ? 'Ingresos' : 'Gastos'}: <span class="font-bold ${isIncomeTab ? 'text-green-600' : 'text-red-600'}">${formatCurrency(total)}</span>
+                    </p>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                            <thead class="bg-gray-50 dark:bg-gray-800">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Descripción</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Monto</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+                                ${data.length === 0 ? `<tr class="bg-gray-50 dark:bg-gray-800"><td colspan="4" class="px-6 py-4 whitespace-nowrap text-center text-gray-500 dark:text-gray-300">No hay ${isIncomeTab ? 'ingresos' : 'gastos'} registrados.</td></tr>` : ''}
+                                ${data.map(item => `
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">${sanitizeInput(item.descripcion)}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap ${isIncomeTab ? 'text-green-600' : 'text-red-600'}">${formatCurrency(item.monto)}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-500 dark:text-gray-400">${sanitizeInput(item.fecha)}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-red-500 hover:text-red-700 delete-btn" data-collection="${collectionName}" data-id="${item.id}" title="Eliminar ${isIncomeTab ? 'ingreso' : 'gasto'}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Renders the content for the Quick Tools section.
+         */
+        function renderQuickTools() {
+            mainContent.innerHTML = `
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Herramientas Rápidas</h1>
+                <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-6">
+                    <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-3xl mb-4">
+                        <p class="text-lg font-medium text-gray-800 dark:text-white mb-4 md:mb-0">Generar enlace de Google Meet</p>
+                        <div class="flex items-center space-x-2">
+                            <span id="meet-link-display" class="text-blue-600 dark:text-blue-400 font-mono text-sm px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 break-all">Haz clic para generar</span>
+                            <button id="generate-meet-link-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                <i class="fas fa-video mr-2"></i>Generar
+                            </button>
+                            <button id="copy-meet-link-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300 hidden" title="Copiar enlace">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- PDF Generation Placeholder -->
+                    <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-3xl text-center">
+                        <i class="fas fa-file-pdf fa-3x text-red-500 mb-4"></i>
+                        <p class="text-xl font-medium text-gray-800 dark:text-white">Generación de PDFs</p>
+                        <p class="text-gray-500 dark:text-gray-400 mt-2">Próximamente: Convierte reportes y documentos a formato PDF.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Simulates a unique Google Meet link.
+         * @returns {string} The simulated Google Meet link.
+         */
+        function getMeetLink() {
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            let part1 = '';
+            let part2 = '';
+            let part3 = '';
+            for (let i = 0; i < 3; i++) part1 += chars.charAt(Math.floor(Math.random() * chars.length));
+            for (let i = 0; i < 3; i++) part2 += chars.charAt(Math.floor(Math.random() * chars.length));
+            for (let i = 0; i < 3; i++) part3 += chars.charAt(Math.floor(Math.random() * chars.length));
+            return `https://meet.google.com/${part1}-${part2}-${part3}`;
+        }
+
+        /**
+         * Copies text to the clipboard, with a fallback for older browsers.
+         * @param {string} text - The text to copy.
+         */
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showMessageModal('Enlace copiado al portapapeles.', 'success');
+                }).catch(err => {
+                    console.error('Error copying to clipboard:', err);
+                    showMessageModal('Error al copiar el enlace.', 'error');
+                });
+            } else {
+                // Fallback for browsers that don't support the Clipboard API
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";  // Avoid scrolling to bottom
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showMessageModal('Enlace copiado al portapapeles.', 'success');
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                    showMessageModal('Error al copiar el enlace.', 'error');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        /**
+         * Renders a placeholder section.
+         * @param {string} title - The title of the section.
+         * @param {string} message - The placeholder message.
+         * @param {string} iconClass - The Font Awesome icon class.
+         */
+        function renderPlaceholder(title, message, iconClass) {
+            mainContent.innerHTML = `
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">${title}</h1>
+                <div class="bg-white dark:bg-gray-700 shadow-lg rounded-3xl p-12 text-center">
+                    <i class="${iconClass} fa-4x text-gray-400 mb-6"></i>
+                    <p class="text-2xl font-bold text-gray-800 dark:text-white">${message}</p>
+                </div>
+            `;
+        }
+
+        /**
+         * Main function to render the content based on the selected section.
+         * @param {string} section - The name of the section to render.
+         */
+        function renderContent(section) {
+            const links = sidebar.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('active', 'bg-gray-200', 'dark:bg-gray-800', 'text-blue-600', 'dark:text-blue-400');
+                link.classList.add('text-gray-500', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+            });
+            const activeLink = document.querySelector(`.nav-link[data-section="${section}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active', 'bg-gray-200', 'dark:bg-gray-800', 'text-blue-600', 'dark:text-blue-400');
+                activeLink.classList.remove('text-gray-500', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+            }
+
+            switch (section) {
+                case 'dashboard':
+                    renderDashboard();
+                    break;
+                case 'agenda':
+                    renderAppointments();
+                    break;
+                case 'clients-cases':
+                    renderClients();
+                    break;
+                case 'finances':
+                    renderFinances('income'); // Default to income tab
+                    break;
+                case 'quick-tools':
+                    renderQuickTools();
+                    break;
+                case 'files':
+                    renderPlaceholder('Archivos y Contratos', 'Arrastra y suelta archivos aquí para gestionarlos (funcionalidad no implementada).', 'fas fa-folder-open');
+                    break;
+                case 'templates':
+                    renderPlaceholder('Plantillas', 'Crea y gestiona plantillas de documentos (funcionalidad no implementada).', 'fas fa-file-invoice');
+                    break;
+                default:
+                    renderDashboard();
+            }
+        }
+
+        /**
+         * Toggles between the login screen and the main app container.
+         */
+        function showLoginScreen() {
+            loginScreen.classList.remove('hidden');
+            appContainer.classList.add('hidden');
+        }
+
+        function showApp() {
+            loginScreen.classList.add('hidden');
+            appContainer.classList.remove('hidden');
+        }
+
+        // --- Event Listeners and Initial Setup ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFirebase();
+
+            // Login screen listener
+            loginButton.addEventListener('click', googleSignIn);
+
+            // Logout listener
+            logoutButton.addEventListener('click', signOutUser);
+
+            // Sidebar navigation listener (event delegation)
+            sidebar.addEventListener('click', (e) => {
+                const target = e.target.closest('.nav-link');
+                if (target) {
+                    const section = target.getAttribute('data-section');
+                    renderContent(section);
+                }
+            });
+
+            // Main content delegation for buttons
+            mainContent.addEventListener('click', (e) => {
+                const target = e.target;
+                
+                // Add buttons for modals
+                if (target.id === 'add-client-btn') showModal('add-client-modal');
+                if (target.id === 'add-appointment-btn') showModal('add-appointment-modal');
+                if (target.id === 'add-income-btn') showModal('add-income-modal');
+                if (target.id === 'add-expense-btn') showModal('add-expense-modal');
+
+                // Delete buttons
+                if (target.closest('.delete-btn')) {
+                    const btn = target.closest('.delete-btn');
+                    const collection = btn.getAttribute('data-collection');
+                    const id = btn.getAttribute('data-id');
+                    // Changed to a custom modal instead of `confirm`
+                    // In a real app, you would create a custom modal here
+                    console.log(`Intentando eliminar: ${collection} con id ${id}`);
+                    if (confirm(`¿Estás seguro de que quieres eliminar este elemento?`)) {
+                        deleteDocument(collection, id);
+                    }
+                }
+
+                // Finance tabs
+                if (target.closest('.tab-btn')) {
+                    const tab = target.closest('.tab-btn').getAttribute('data-tab');
+                    renderFinances(tab);
+                }
+
+                // Quick Tools
+                if (target.id === 'generate-meet-link-btn') {
+                    const link = getMeetLink();
+                    const linkDisplay = mainContent.querySelector('#meet-link-display');
+                    const copyBtn = mainContent.querySelector('#copy-meet-link-btn');
+                    if (linkDisplay && copyBtn) {
+                        linkDisplay.textContent = link;
+                        copyBtn.classList.remove('hidden');
+                    }
+                }
+                if (target.id === 'copy-meet-link-btn') {
+                    const textToCopy = mainContent.querySelector('#meet-link-display').textContent;
+                    if (textToCopy && textToCopy !== 'Haz clic para generar') {
+                        copyToClipboard(textToCopy);
+                    }
+                }
+            });
+
+            // Modals close buttons
+            modalContainer.addEventListener('click', (e) => {
+                if (e.target.closest('.modal-close-btn') || e.target.closest('.modal-cancel-btn') || e.target.id === 'modal-container') {
+                    hideModal('add-client-modal');
+                    hideModal('add-appointment-modal');
+                    hideModal('add-income-modal');
+                    hideModal('add-expense-modal');
+                }
+            });
+
+            // Form submission listeners
+            addClientForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const nombre = sanitizeInput(e.target.nombre.value);
+                const caso = sanitizeInput(e.target.caso.value);
+                const estado = sanitizeInput(e.target.estado.value);
+
+                if (!nombre || !caso || !estado) {
+                    showMessageModal('Todos los campos son obligatorios.', 'error');
+                    return;
+                }
+                
+                await addDocument('clientes', { nombre, caso, estado });
+                hideModal('add-client-modal');
+            });
+            
+            addAppointmentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const titulo = sanitizeInput(e.target.titulo.value);
+                const fecha = e.target.fecha.value;
+                const hora = e.target.hora.value;
+
+                if (!titulo || !fecha || !hora) {
+                    showMessageModal('Todos los campos son obligatorios.', 'error');
+                    return;
+                }
+
+                await addDocument('agenda', { titulo, fecha, hora });
+                hideModal('add-appointment-modal');
+            });
+
+            addIncomeForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const descripcion = sanitizeInput(e.target.descripcion.value);
+                const monto = parseFloat(e.target.monto.value);
+                const fecha = e.target.fecha.value;
+
+                if (!descripcion || !monto || !fecha) {
+                    showMessageModal('Todos los campos son obligatorios.', 'error');
+                    return;
+                }
+                if (monto <= 0) {
+                    showMessageModal('El monto debe ser un número positivo.', 'error');
+                    return;
+                }
+
+                await addDocument('ingresos', { descripcion, monto, fecha });
+                hideModal('add-income-modal');
+            });
+
+            addExpenseForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const descripcion = sanitizeInput(e.target.descripcion.value);
+                const monto = parseFloat(e.target.monto.value);
+                const fecha = e.target.fecha.value;
+
+                if (!descripcion || !monto || !fecha) {
+                    showMessageModal('Todos los campos son obligatorios.', 'error');
+                    return;
+                }
+                if (monto <= 0) {
+                    showMessageModal('El monto debe ser un número positivo.', 'error');
+                    return;
+                }
+
+                await addDocument('gastos', { descripcion, monto, fecha });
+                hideModal('add-expense-modal');
+            });
+
+            // Initial render
+            renderContent('dashboard');
+        });
+
+        /*
+        // Firebase Security Rules (for reference, not part of the JS code)
+        // These rules are required for the Firestore database to work securely.
+        // Copy and paste this block into your Firestore Security Rules section.
+
+        rules_version = '2';
+        service cloud.firestore {
+          match /databases/{database}/documents {
+            function isAuthenticated() {
+              return request.auth != null;
+            }
+            function isUserData(userId) {
+              return request.auth.uid == userId;
+            }
+            function isValidClient() {
+              return request.resource.data.keys().hasAll(['nombre', 'caso', 'estado']) &&
+                     request.resource.data.nombre is string &&
+                     request.resource.data.caso is string &&
+                     request.resource.data.estado in ['Activo', 'Inactivo'];
+            }
+            function isValidCita() {
+              return request.resource.data.keys().hasAll(['titulo', 'fecha', 'hora']) &&
+                     request.resource.data.titulo is string &&
+                     request.resource.data.fecha is string &&
+                     request.resource.data.hora is string;
+            }
+            function isValidFinanza() {
+              return request.resource.data.keys().hasAll(['descripcion', 'monto', 'fecha']) &&
+                     request.resource.data.descripcion is string &&
+                     request.resource.data.monto is number &&
+                     request.resource.data.monto > 0 &&
+                     request.resource.data.fecha is string;
+            }
+            match /artifacts/{appId}/users/{userId} {
+              match /clientes/{documentId} {
+                allow read: if isAuthenticated() && isUserData(userId);
+                allow create, update: if isAuthenticated() && isUserData(userId) && isValidClient();
+                allow delete: if isAuthenticated() && isUserData(userId);
+              }
+              match /agenda/{documentId} {
+                allow read: if isAuthenticated() && isUserData(userId);
+                allow create, update: if isAuthenticated() && isUserData(userId) && isValidCita();
+                allow delete: if isAuthenticated() && isUserData(userId);
+              }
+              match /ingresos/{documentId} {
+                allow read: if isAuthenticated() && isUserData(userId);
+                allow create, update: if isAuthenticated() && isUserData(userId) && isValidFinanza();
+                allow delete: if isAuthenticated() && isUserData(userId);
+              }
+              match /gastos/{documentId} {
+                allow read: if isAuthenticated() && isUserData(userId);
+                allow create, update: if isAuthenticated() && isUserData(userId) && isValidFinanza();
+                allow delete: if isAuthenticated() && isUserData(userId);
+              }
+            }
+          }
+        }
+        */
+    </script>
+</body>
+</html>
